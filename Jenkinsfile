@@ -10,8 +10,10 @@ node {
     }
 
     stage('pullImage') {
-        image = docker.image("${params.registryName}/${params.imageName}")
-        image.pull()
+        image = docker.image("${params.imageName}")
+        docker.withRegistry("${params.registryName}") {
+            image.pull()
+        }
     }
 
     stage('Scan image') {
