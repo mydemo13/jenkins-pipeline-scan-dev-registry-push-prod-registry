@@ -27,6 +27,7 @@ node {
     stage('pushImage') {
         docker.withRegistry("${ProdregistryName}") {
             image.push()
+            echo image.imageName()
         }
     }
     
