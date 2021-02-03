@@ -18,7 +18,7 @@ node {
 
     stage('Scan image') {
         try {
-            prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "${registryName}/${imageName}", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
+            prismaCloudScanImage ca: '', cert: '', dockerAddress: 'unix:///var/run/docker.sock', ignoreImageBuildTime: true, image: "${imageName}", key: '', logLevel: 'debug', podmanPath: '', project: '', resultsFile: 'prisma-cloud-scan-results.json'
         } finally {
             prismaCloudPublish resultsFilePattern: 'prisma-cloud-scan-results.json'
         }
@@ -31,6 +31,6 @@ node {
     }
     
     stage('removeImage') {
-        sh "docker image rm ${registryName}/${imageName}"
+        sh "docker image rm ${imageName}"
     }                
 }
