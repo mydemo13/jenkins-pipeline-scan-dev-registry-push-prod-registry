@@ -1,5 +1,6 @@
 node {
     def image
+    def prodImageName
 
     stage('Clean') {
         sh 'rm * -f -r -d -v'
@@ -27,11 +28,12 @@ node {
     stage('pushImage') {
         docker.withRegistry("${ProdregistryName}") {
             image.push()
-            echo image.imageName()
+            prodImageName = image.imageName()
         }
     }
     
     stage('removeImage') {
         sh "docker image rm ${imageName}"
+        sh "docker image rm ${prodImageName}"
     }                
 }
